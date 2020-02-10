@@ -20,8 +20,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.devopsbuddy.backend.persistence.repositories")
 @EntityScan(basePackages = "com.devopsbuddy.backend.persistence.domain.backend")
 @EnableTransactionManagement
-@PropertySource("file:///${user.home}/.devopsbuddy/application-common.properties")
-@PropertySource("file:///${user.home}/.devopsbuddy/stripe.properties")
+@PropertySource("application-common.properties")
+@PropertySource("stripe.properties")
 public class ApplicationConfig {
 
     @Value("${aws.s3.profile}")
@@ -31,7 +31,7 @@ public class ApplicationConfig {
     public AmazonS3Client s3Client() {
         AWSCredentials credentials = new ProfileCredentialsProvider(awsProfileName).getCredentials();
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
-        Region region = Region.getRegion(Regions.EU_WEST_1);
+        Region region = Region.getRegion(Regions.AP_NORTHEAST_1);
         s3Client.setRegion(region);
         return s3Client;
     }
